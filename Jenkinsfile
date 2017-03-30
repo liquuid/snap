@@ -21,6 +21,7 @@ try {
     switch (env.BRANCH_NAME) {
       case ~/master/: snapAppName = "subutai-master"; break;
       case ~/dev/: snapAppName = "subutai-dev"; break;
+      case ~/jenkinsfile/: snapAppName = "subutai-dev"; break;
       default: assert false
     }    
 

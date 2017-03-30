@@ -50,7 +50,6 @@ try {
       """
 
       sh """
-        set +x
         ssh root@${env.SS_TEST_NODE_CORE16} <<- EOF
         set -e
         subutai-dev destroy everything
@@ -58,7 +57,7 @@ try {
         find /var/snap/subutai-dev/common/lxc/tmpdir/ -maxdepth 1 -type f -name 'management-subutai-template_*' -delete
         snap install --dangerous --devmode /tmp/subutai-dev-latest.snap
         find /tmp -maxdepth 1 -type f -name 'subutai-dev_*' -delete
-      EOF"""
+EOF"""
 
       // install generated management template
       sh """
@@ -100,13 +99,6 @@ try {
       """
     }
   }
-
-  stage("Upload to Ubuntu Store")
-
-  notifyBuildDetails = "\nFailed on Stage - Upload to Ubuntu Store"
-  sh """
-    snapcraft push \$(ls ${snapAppName}*_amd64.snap) --release beta
-  """
   }
 } catch (e) { 
   currentBuild.result = "FAILED"
@@ -142,7 +134,7 @@ def notifyBuild(String buildStatus = 'STARTED', String details = '') {
   // Get token
   def slackToken = getSlackToken('sysnet-bots-slack-token')
   // Send notifications
-  slackSend (color: colorCode, message: summary, teamDomain: 'subutai-io', token: "${slackToken}")
+  // slackSend (color: colorCode, message: summary, teamDomain: 'subutai-io', token: "${slackToken}")
 }
 
 // get slack token from global jenkins credentials store

@@ -11,6 +11,10 @@ apps:
                 aliases: [subutai]
         p2p:
                 command: bin/p2p
+        agent-server:
+                command: bin/agent-server --port 6060
+                aliases: [agent-server]
+                daemon: simple
         btrfsinit:
                 command: bin/btrfsinit
         rsync:
